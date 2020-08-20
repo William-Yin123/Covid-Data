@@ -1,5 +1,5 @@
 const loadAndProcessData = async () => {
-    const d = await d3.json("http://localhost:3201/api");
+    const d = await d3.json(`http://${location.hostname}:3201/api`);
 
     const dataFiltered = d.filter(datum => datum.Date_reported && datum.Country && datum.Country_code);
     dataFiltered.forEach(datum => {
