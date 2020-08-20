@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, shrink-to-fit=no')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/icons.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    block pre-scripts
+    title= title
+
+  body
+    nav.navbar.fixed-top.navbar-expand-md.navbar-light.navigation-menu
+      .container
+        a.navbar-brand(href='/') COVID-19 Data
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarMain')
+          span.navbar-toggler-icon
+        #navbarMain.navbar-collapse.collapse
+          ul.navbar-nav.mr-auto
+            li.nav-item
+              a.option(href="/table") Table
+            li.nav-item
+              a.option(href="/map") Map
+
+    block content
+
+  script(src='/javascripts/jquery-3.3.1.slim.min.js')
+  script(src='/javascripts/popper.min.js')
+  script(src='/javascripts/bootstrap.min.js')
+  block post-scripts

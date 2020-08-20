@@ -1,0 +1,85 @@
+body {
+    padding: 0;
+    color: #e60000;
+    background-color: #251616;
+}
+
+a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+table.dropDown {
+    color: inherit;
+}
+
+#main {
+    padding: 0;
+    margin-top: 3.5em;
+}
+
+.navigation-menu {
+    background-color: #e60000;
+    color: #bdbdbd;
+}
+
+button.dropButton {
+    border-radius: 0;
+    padding: 1em;
+    background-color: inherit;
+    color: inherit;
+}
+
+.dropButton:hover .arrow {
+    border-color: #fff;
+}
+
+.dropButton:focus .arrow {
+    border-color: #fff;
+}
+
+.right {
+    float: right;
+}
+
+.hidden {
+    display: none;
+}
+
+.graph {
+    overflow: scroll;
+    width: 35em;
+    height: 35em;
+}
+
+circle {
+    fill: white;
+    opacity: 0.3;
+}
+
+.title {
+    fill: white;
+}
+
+.option {
+    padding-top: 2em;
+    padding-right: 1em;
+    color: #bdbdbd;
+}
+
+.sphere {
+    fill: #4242e4;
+}
+
+.country {
+    stroke: black;
+    stroke-width: 0.05px;
+}
+
+.country:hover {
+    fill: green;
+}
+
+.label {
+    pointer-events: none;
+}
