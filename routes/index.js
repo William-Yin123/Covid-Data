@@ -19,7 +19,7 @@ const init = async () => {
     dataByCountry = response.dataByCountry;
     countryCodes = response.countryCodes;
 
-    formatData(countries, dataByCountry);
+    // formatData(countries, dataByCountry);
 };
 // init();
 setInterval(init, 6 * 60 * 60 * 1000);
