@@ -1,0 +1,32 @@
+extends layout
+
+block pre-scripts
+  script(src='/javascripts/d3.min.js')
+  script(src='/javascripts/other/fetch.js')
+  script(src='/javascripts/table/table.js')
+
+block content
+  .container-fluid#main
+    .country-info
+      button.dropButton.btn.btn-block.btn-danger.w-100(onclick="showCountryData('"+code+"', 'hidden')")= country+" - Cases: "+dataByCountry[country][0].Cumulative_cases+", Deaths: "+dataByCountry[country][0].Cumulative_deaths
+        i.arrow.down.arrow-danger(id=code + "-arrow").right
+      .hidden(id=code)
+        svg.cases-graph.graph.hidden(id=code + "-cases-graph")
+        svg.deaths-graph.graph.hidden(id=code + "-deaths-graph")
+        .table-responsive
+          table.dropDown.table.table-striped.table-bordered.w-100.d-table
+            thead
+              tr
+                th Date
+                th New Cases
+                th Total Cases
+                th New Deaths
+                th Total Deaths
+            tbody.w-100
+              each datum in dataByCountry[country]
+                tr
+                  td= datum.Date_reported
+                  td= datum.New_cases
+                  td= datum.Cumulative_cases
+                  td= datum.New_deaths
+                  td= datum.Cumulative_deaths

@@ -6,7 +6,7 @@ body {
 
 a:hover {
     text-decoration: none;
-    color: white;
+    color: #251616;
 }
 
 table.dropDown {
@@ -18,9 +18,12 @@ table.dropDown {
     margin-top: 3.5em;
 }
 
+#main-title:hover {
+    color: white;
+}
+
 .navigation-menu {
     background-color: #e60000;
-    color: #bdbdbd;
 }
 
 button.dropButton {
@@ -46,8 +49,11 @@ button.dropButton {
     display: none;
 }
 
-.graph {
+svg {
     overflow: scroll;
+}
+
+.graph {
     width: 35em;
     height: 35em;
 }
@@ -64,7 +70,7 @@ circle {
 .option {
     padding-top: 2em;
     padding-right: 1em;
-    color: #bdbdbd;
+    color: white;
 }
 
 .sphere {
@@ -82,4 +88,36 @@ circle {
 
 .label {
     pointer-events: none;
+}
+
+.global-label {
+    padding: 0.5em 0;
+    text-align: center;
+}
+
+.map-container {
+    background-color: #2e2e2e;
+}
+
+.axis-label {
+    font-size: 1.25em;
+}
+
+#timeline-slider:hover {
+    fill: white;
+    stroke: white;
+}
+
+.options-button {
+    color: #e60000;
+    border-width: 0;
+    border-radius: 0.25em;
+    background-color: black;
+    margin-left: 0.5em;
+    font-weight: bold;
+}
+
+.options-button:hover {
+    color: #e60000;
+    background-color: white;
 }

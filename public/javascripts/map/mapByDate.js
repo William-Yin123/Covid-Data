@@ -1,4 +1,6 @@
-const renderMapByDate = (date, names, colorScale, countryPaths, countryLabels, countryHoverInfo) => {
+const renderMapByDate = (date) => {
+
+    const numberFormatter = d3.format(",");
 
     const findDataPointByDate = (date, data) => {
         if (data[0].dateReported > date) return -1;
@@ -20,13 +22,17 @@ const renderMapByDate = (date, names, colorScale, countryPaths, countryLabels, c
             }
         });
 
+    let globalCases = 0;
+    let globalDeaths = 0;
     countryHoverInfo.text(d => {
             const data = d.properties;
             if (data) {
                 const idx = findDataPointByDate(date, data.cases);
-                const cumulative = (idx === -1) ? 0 : data.cases[idx].cumulative;
+                const cases = (idx === -1) ? 0 : data.cases[idx].cumulative;
                 const deaths = (idx === -1) ? 0 : data.deaths[idx].cumulative;
-                return `${data.cases[0].name} - Cases: ${cumulative}, Deaths: ${deaths}, Id: ${d.id}`;
+                globalCases += cases;
+                globalDeaths += deaths;
+                return `${data.cases[0].name} - Cases: ${numberFormatter(cases)}, Deaths: ${numberFormatter(deaths)}, Id: ${d.id}`;
             } else {
                 return "No Data";
             }
@@ -34,10 +40,23 @@ const renderMapByDate = (date, names, colorScale, countryPaths, countryLabels, c
 
     countryLabels.text(d => {
             const data = d.properties;
-            if (data && names.includes(data.cases[0].name)) {
+            if (data && countriesShownNames.includes(data.cases[0].name)) {
                 const idx = findDataPointByDate(date, data.cases);
                 const cumulative = (idx === -1) ? 0 : data.cases[idx].cumulative;
-                return cumulative;
+                return numberFormatter(cumulative);
             }
         });
+
+    if (casesLabel) {
+        casesLabel.text(`Global Cases: ${numberFormatter(globalCases)}`);
+    }
+
+    if (deathsLabel) {
+        deathsLabel.text(`Global Deaths: ${numberFormatter(globalDeaths)}`);
+    }
+
+    if (dateLabel) {
+        const formatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateLabel.text(date.toLocaleDateString(undefined, formatOptions));
+    }
 };

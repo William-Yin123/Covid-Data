@@ -2,8 +2,15 @@ extends layout
 
 block pre-scripts
   script(src='/javascripts/d3.min.js')
-  script(src='/javascripts/fetch.js')
-  script(src='/javascripts/table.js')
+  script(src='/javascripts/other/fetch.js')
+  script(src='/javascripts/table/table.js')
+
+block options
+  ul.navbar-nav.ml-auto
+    li.nav-item
+      button.options-button#sort-cases-button(onclick="sortCountryData('cases')") Sort by Cases
+      button.options-button#sort-deaths-button(onclick="sortCountryData('deaths')") Sort by Deaths
+      button.options-button#sort-name-button(onclick="sortCountryData('name')") Sort by Name
 
 block content
   .container-fluid#main
@@ -13,6 +20,8 @@ block content
         button.dropButton.btn.btn-block.btn-danger.w-100(onclick="showCountryData('"+countryCodes[idx]+"', 'hidden')")= country+" - Cases: "+dataByCountry[country][0].Cumulative_cases+", Deaths: "+dataByCountry[country][0].Cumulative_deaths
           i.arrow.down.arrow-danger(id=countryCodes[idx] + "-arrow").right
         .hidden(id=countryCodes[idx])
+          svg.cases-graph.graph.hidden(id=countryCodes[idx] + "-cases-graph")
+          svg.deaths-graph.graph.hidden(id=countryCodes[idx] + "-deaths-graph")
           .table-responsive
             table.dropDown.table.table-striped.table-bordered.w-100.d-table
               thead
@@ -25,11 +34,9 @@ block content
               tbody.w-100
                 each datum in dataByCountry[country]
                   tr
-                    th= datum.Date_reported
-                    th= datum.New_cases
-                    th= datum.Cumulative_cases
-                    th= datum.New_deaths
-                    th= datum.Cumulative_deaths
-          svg.cases-graph.graph(id=countryCodes[idx] + "-cases-graph")
-          svg.deaths-graph.graph(id=countryCodes[idx] + "-deaths-graph")
+                    td= datum.Date_reported
+                    td= datum.New_cases
+                    td= datum.Cumulative_cases
+                    td= datum.New_deaths
+                    td= datum.Cumulative_deaths
       - idx++

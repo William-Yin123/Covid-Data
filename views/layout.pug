@@ -3,23 +3,25 @@ html(lang="en")
   head
     meta(name='viewport', content='width=device-width, initial-scale=1.0, shrink-to-fit=no')
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/icons.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/styles.css')
     block pre-scripts
     title= title
 
   body
     nav.navbar.fixed-top.navbar-expand-md.navbar-light.navigation-menu
       .container
-        a.navbar-brand(href='/') COVID-19 Data
+        a.navbar-brand#main-title(href='/') COVID-19 Data
         button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarMain')
           span.navbar-toggler-icon
         #navbarMain.navbar-collapse.collapse
           ul.navbar-nav.mr-auto
             li.nav-item
-              a.option(href="/table") Table
-            li.nav-item
               a.option(href="/map") Map
+            li.nav-item
+              a.option(href="/table") Table
+          block options
 
     block content
 

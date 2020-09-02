@@ -44,5 +44,5 @@ const loadAndProcessData = async () => {
         dataByCountryCode[countryCode] = {cases: casesByCountry[countryCode], deaths: deathsByCountry[countryCode]};
     }
 
-    return {codeToCountry, dataByCountryCode, raw: dataFiltered};
+    return { codeToCountry, dataByCountryCode, raw: dataFiltered };
 };

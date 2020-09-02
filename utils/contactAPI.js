@@ -1,7 +1,12 @@
 const request = require("async-request");
 
-const contactAPI = async () => {
-    const response = await request("http://localhost:3201/api");
+const contactAPI = async (query) => {
+    let url = "http://localhost:3201/api";
+    if (query && query.length) {
+        const countriesQuery = query.join("&countries[]=");
+        url += `?countries[]=${countriesQuery}`;
+    }
+    const response = await request(url);
     const responseJSON = JSON.parse(response.body);
 
     const data = responseJSON.filter(datum => datum.Date_reported !== "");
@@ -36,7 +41,7 @@ const contactAPI = async () => {
 
     const countryCodes = Array.from(countryCodesSet);
 
-    return { data, countries, dataByCountry, countryCodes};
+    return { data, countries, dataByCountry, countryCodes };
 };
 
 module.exports = {

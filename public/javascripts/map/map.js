@@ -1,3 +1,25 @@
+let mapG,
+    mapSVG,
+    projection,
+    pathGenerator,
+    datesExtent,
+    countriesShownNames,
+    colorScale,
+    countryPaths,
+    countryLabels,
+    countryHoverInfo,
+    casesLabel,
+    deathsLabel,
+    dateLabel;
+
+const mapGTranslate = [];
+
+const resetMap = () => {
+    if (mapGTranslate.length === 2 && mapG) {
+        mapG.attr("transform", `translate(${mapGTranslate[0]}, ${mapGTranslate[1]})`);
+    }
+};
+
 Promise.all([
     d3.tsv('../datafiles/50m.tsv'),
     d3.csv('../datafiles/CountryMapping.csv'),
@@ -5,13 +27,13 @@ Promise.all([
     d3.csv('../datafiles/CountriesShown.csv')
 ]).then(async ([tsvData, countryMapping, topoJSONdata, countriesShown]) => {
 
-    const mapSVG = d3.select("#map-svg")
+    mapSVG = d3.select("#map-svg")
         .attr("preserveAspectRatio", "xMinYMin meet");
 
-    const projection = d3.geoNaturalEarth1();
-    const pathGenerator = d3.geoPath().projection(projection);
+    projection = d3.geoNaturalEarth1();
+    pathGenerator = d3.geoPath().projection(projection);
 
-    const mapG = mapSVG.append('g')
+    mapG = mapSVG.append('g')
         .attr("id", "map");
 
     mapG.append('path')
@@ -22,7 +44,7 @@ Promise.all([
         mapG.attr('transform', d3.event.transform);
     }));
 
-    const {codeToCountry, dataByCountryCode, raw} = await loadAndProcessData();
+    const { codeToCountry, dataByCountryCode, raw } = await loadAndProcessData();
 
     const dataByCountry = Object.keys(codeToCountry).reduce((accumulator, d) => {
         accumulator[codeToCountry[d]] = dataByCountryCode[d];
@@ -69,41 +91,59 @@ Promise.all([
         d.projection = projection(d3.geoCentroid(d));
     });
 
-    const translateX = (+mapSVG.node().getBoundingClientRect().width / 2) - (+mapG.node().getBoundingClientRect().width / 2);
-    mapG.attr("transform", `translate(${translateX}, 10)`);
+    mapGTranslate[0] = (+mapSVG.node().getBoundingClientRect().width / 2) - (+mapG.node().getBoundingClientRect().width / 2);
+    mapGTranslate[1] = 5;
+    mapG.attr("transform", `translate(${mapGTranslate[0]}, ${mapGTranslate[1]})`);
 
     const caseNums = raw.map(d => Math.log(+d.Cumulative_cases));
-    const colorScale = d3.scaleQuantile(d3.schemeReds[9])
+    colorScale = d3.scaleQuantile(d3.schemeReds[9])
         .domain(d3.extent(caseNums));
 
-    const countryPaths = mapG.selectAll('path')
+    countryPaths = mapG.selectAll('path')
         .data(countries.features)
         .enter()
+        .append("a")
+        .attr("target", d => (d.properties) ? "_blank" : "_self")
+        .attr("href", d => {
+            const data = d.properties;
+            if (data) {
+                return `/country/${data.cases[0].code}`;
+            } else {
+                return "#";
+            }
+        })
         .append('path')
         .attr('class', 'country')
         .attr('d', pathGenerator)
         .attr("fill", d => {
             const data = d.properties;
             if (data) {
-                // console.log(data);
                 return colorScale(Math.log(1));
             } else {
                 return "rgb(128, 128, 128)";
             }
         });
 
-    const countryHoverInfo = countryPaths.append('title')
+    countryHoverInfo = countryPaths.append('title')
         .text(d => {
             const data = d.properties;
             if (data) {
-                return `${data.cases[0].name} - Cases: ${0}, Deaths: ${0}, Id: ${d.id}`;
+                return `${data.cases[0].name} - Cases: 0, Deaths: 0, Id: ${d.id}`;
             } else {
                 return "No Data";
             }
         });
 
-    const names = countriesShown.map(country => country.name);
-    const countryLabels = mapG.append("g")
+    const calculateLabelLocation = (d, startingLocation, direction) => {
+        const data = d.properties;
+        if (!data) return;
+        let projection = startingLocation;
+        const countryObject = countriesShown.filter(country => country.name === data.cases[0].name)[0];
+        if (countryObject) projection += +countryObject[`${direction}Shift`];
+        return projection;
+    };
+    countriesShownNames = countriesShown.map(country => country.name);
+    countryLabels = mapG.append("g")
         .selectAll("text")
         .data(countries.features)
         .enter()
@@ -111,32 +151,23 @@ Promise.all([
         .attr("class", "label")
         .text(d => {
             const data = d.properties;
-            if (data && names.includes(data.cases[0].name)) {
+            if (data && countriesShownNames.includes(data.cases[0].name)) {
                 return 0;
             }
         })
-        .attr("fill", "black")
-        .attr("x", d => d.projection[0])
-        .attr("y", d => d.projection[1])
+        .attr("fill", "#000000")
+        .attr("x", d => calculateLabelLocation(d, d.projection[0], "x"))
+        .attr("y", d => calculateLabelLocation(d, d.projection[1], "y"))
         .attr("font-size", "0.5em");
 
-    const present = new Date();
-
-    const date = new Date("2020-01-02");
-    let updateNum = 1;
-    while (date < present) {
-        setTimeout(renderMapByDate, updateNum * 500, new Date(date), names, colorScale, countryPaths, countryLabels, countryHoverInfo);
-        date.setDate(date.getDate() + 1);
-        updateNum++;
-    }
+    casesLabel = d3.select("#cases-counter");
+    deathsLabel = d3.select("#deaths-counter");
+    dateLabel = d3.select("#date-label");
 
     const timelineSVG = d3.select("#timeline-svg")
         .attr("preserveAspectRatio", "xMinYMin meet");
 
-    const dates = [];
-    for (const i = new Date("2020-01-02"); i < present; i.setDate(i.getDate() + 1)) {
-        dates.push(new Date(i));
-    }
+    datesExtent = d3.extent(raw.map(d => new Date(d.Date_reported)));
 
-    renderTimeline(dates, timelineSVG);
+    renderTimeline(timelineSVG);
 });

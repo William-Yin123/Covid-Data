@@ -1,22 +1,32 @@
-name
+name,xShift,yShift
 Greenland
 Canada
 United States of America
 Mexico
 Guatemala
+Nicaragua,0,3
+Cuba,0,-2
+Bahamas,0,-5
 Dominican Republic
 Panama
 Colombia
-Peru
+Venezuela (Bolivarian Republic of)
+Ecuador
+Suriname
+Peru,-5
 Brazil
-Paraguay
-Uruguay
-Bolivia (Plurinational State of)
+Paraguay,-5
+Uruguay,-3
+Bolivia (Plurinational State of),-5
 Chile
+Argentina,0,20
+Falkland Islands (Malvinas)
 Spain
-France
+Portugal,-15,0
+France,5,-10
 Iceland
 The United Kingdom
+Ireland,-15,0
 Italy
 Belarus
 Greece
@@ -27,40 +37,54 @@ Ukraine
 Turkey
 Russian Federation
 Kazakhstan
+Kyrgyzstan
+Uzbekistan,-10
 China
 Mongolia
 Republic of Korea
-Japan
+Japan,5,0
 Philippines
 Indonesia
 Malaysia
 Papua New Guinea
 Australia
 New Zealand
+Myanmar,-3,5
 Thailand
-India
+Viet Nam,-7,-12
+India,-5,20
+Bangladesh,-8
+Nepal
 Sri Lanka
 Pakistan
-Iraq
-Iran (Islamic Republic of)
+Afghanistan,0,-3
+Iraq,-10,0
+Iran (Islamic Republic of),0,5
+Israel,-15,3
 Saudi Arabia
-Afghanistan
 Oman
+Yemen
 Egypt
 Libya
+Tunisia
 Algeria
 Chad
 Ethiopia
 Madagascar
 Nigeria
+Ghana,0,7
 South Africa
 Democratic Republic of the Congo
 Morocco
 Sudan
-Ghana
+Guinea
 Mauritania
+Senegal,-10
+Mali,0,5
 Namibia
 Niger
+Cameroon,0,8
+Gabon,-5,5
 Angola
 Mozambique
 Central African Republic

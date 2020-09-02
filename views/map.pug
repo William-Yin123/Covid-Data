@@ -1,16 +1,26 @@
 extends layout
 
+block options
+  ul.navbar-nav.ml-auto
+    li.nav-item
+      button.options-button#play-button(onclick="playTimeline()")
+        i.fa.fa-pause#play-button-icon
+      button.options-button#reset-button(onclick="resetMap()") Reset Map
+
 block content
-  .container-fluid#main
+  .container-fluid.gutter-top#main
     .map-container
       svg#map-svg(width="100%", height="32em")
-    .timeline-container
-      svg#timeline-svg(width="100%")
+    .container-fluid
+      .global-label#date-label Wednesday, January 1, 2020
+      .global-label#cases-counter Global Cases: 0
+      .global-label#deaths-counter Global Deaths: 0
+    svg#timeline-svg(width="100%")
 
 block post-scripts
   script(src='/javascripts/d3.min.js')
   script(src='/javascripts/topojson.min.js')
-  script(src='/javascripts/fetch.js')
-  script(src='/javascripts/timeline.js')
-  script(src='/javascripts/renderMapByDate.js')
-  script(src='/javascripts/map.js')
+  script(src='/javascripts/other/fetch.js')
+  script(src='/javascripts/map/mapByDate.js')
+  script(src='/javascripts/map/timeline.js')
+  script(src='/javascripts/map/map.js')
