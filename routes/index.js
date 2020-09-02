@@ -21,7 +21,7 @@ const init = async () => {
 
     formatData(countries, dataByCountry);
 };
-init();
+// init();
 setInterval(init, 6 * 60 * 60 * 1000);
 
 router.get('/', (req, res, next) => {
