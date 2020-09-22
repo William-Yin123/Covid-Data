@@ -95,7 +95,7 @@ Promise.all([
     mapGTranslate[1] = 5;
     mapG.attr("transform", `translate(${mapGTranslate[0]}, ${mapGTranslate[1]})`);
 
-    const caseNums = raw.map(d => Math.log(+d.Cumulative_cases));
+    const caseNums = raw.map(d => Math.log(+d.Cumulative_cases)).filter(d => d >= 1);
     colorScale = d3.scaleQuantile(d3.schemeReds[9])
         .domain(d3.extent(caseNums));
 
