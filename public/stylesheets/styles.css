@@ -4,6 +4,20 @@ body {
     background-color: #251616;
 }
 
+.loading-spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 100;
+    width: 5em;
+    height: 5em;
+}
+
+.background {
+    pointer-events: none;
+    filter: blur(0.1em);
+}
+
 a:hover {
     text-decoration: none;
     color: #251616;

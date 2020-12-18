@@ -9,6 +9,8 @@ let dataByCountryCode;
 
     d3.selectAll(".country-info")
         .data(dataGrouped);
+
+    // activatePage();
 })();
 
 const renderGraph = (countryCode, data, type) => {
@@ -127,5 +129,5 @@ const sortCountryData = (option) => {
             }
 
             return d2[option][d2[option].length - 1].cumulative - d1[option][d1[option].length - 1].cumulative
-        });
+    });
 };

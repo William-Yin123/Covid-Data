@@ -170,4 +170,6 @@ Promise.all([
     datesExtent = d3.extent(raw.map(d => new Date(d.Date_reported)));
 
     renderTimeline(timelineSVG);
+
+    activatePage();
 });

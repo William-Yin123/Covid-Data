@@ -10,22 +10,25 @@ html(lang="en")
     title= title
 
   body
-    nav.navbar.fixed-top.navbar-expand-md.navbar-light.navigation-menu
-      .container
-        a.navbar-brand#main-title(href='/') COVID-19 Data
-        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarMain')
-          span.navbar-toggler-icon
-        #navbarMain.navbar-collapse.collapse
-          ul.navbar-nav.mr-auto
-            li.nav-item
-              a.option(href="/map") Map
-            li.nav-item
-              a.option(href="/table") Table
-          block options
+    .loading-spinner.spinner-border
+    .background
+      nav.navbar.fixed-top.navbar-expand-md.navbar-light.navigation-menu
+        .container
+          a.navbar-brand#main-title(href='/') COVID-19 Data
+          button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarMain')
+            span.navbar-toggler-icon
+          #navbarMain.navbar-collapse.collapse
+            ul.navbar-nav.mr-auto
+              li.nav-item
+                a.option(href="/map") Map
+              li.nav-item
+                a.option(href="/table") Table
+            block options
 
-    block content
+      block content
 
   script(src='/javascripts/jquery-3.3.1.slim.min.js')
   script(src='/javascripts/popper.min.js')
   script(src='/javascripts/bootstrap.min.js')
+  script(src='/javascripts/other/activatePage.js')
   block post-scripts
