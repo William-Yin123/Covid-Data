@@ -10,7 +10,7 @@ let dataByCountryCode;
     d3.selectAll(".country-info")
         .data(dataGrouped);
 
-    // activatePage();
+    activatePage();
 })();
 
 const renderGraph = (countryCode, data, type) => {
