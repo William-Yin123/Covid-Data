@@ -38,7 +38,7 @@ router.get('/country/:countryCode', async (req, res, next) => {
     res.render(
         'countryData',
         {
-            title: 'Covid Data',
+            title: `Data for ${response.countries[0]}`,
             country: response.countries[0],
             code: response.countryCodes[0],
             dataByCountry: response.dataByCountry
