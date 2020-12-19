@@ -53,7 +53,7 @@ const renderGraph = (countryCode, data, type) => {
     const g = svg.append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    const formatDate = d3.timeFormat("%B");
+    const formatDate = d3.timeFormat("%b");
 
     const xTicks = 8;
     const xAxis = d3.axisBottom(xScale)
