@@ -106,6 +106,8 @@ const renderGraph = (countryCode, data, type) => {
 };
 
 const showCountryData = (countryCode, className) => {
+    if (!activated) return;
+
     document.getElementById(countryCode).classList.toggle(className);
 
     const arrowElement = document.getElementById(`${countryCode}-arrow`);
@@ -113,15 +115,23 @@ const showCountryData = (countryCode, className) => {
     arrowElement.classList.toggle("down");
     arrowElement.classList.toggle("up");
 
-    if (open && dataByCountryCode) {
+    if (open) {
         renderGraph(countryCode, dataByCountryCode[countryCode].cases, "cases");
         renderGraph(countryCode, dataByCountryCode[countryCode].deaths, "deaths");
+    } else {
+        d3.select(`#${countryCode}-cases-graph`)
+            .selectAll("*")
+            .remove();
+        d3.select(`#${countryCode}-deaths-graph`)
+            .selectAll("*")
+            .remove();
     }
 };
 
 const sortCountryData = (option) => {
+    if (!activated) return;
+
     const countryInfoDivs = d3.selectAll(".country-info");
-    if (!countryInfoDivs.data()) return;
 
     countryInfoDivs.sort((d1, d2) => {
             if (option === "name") {

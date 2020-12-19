@@ -6,29 +6,29 @@ html(lang="en")
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/icons.css')
     link(rel='stylesheet', href='/stylesheets/styles.css')
+    script(src='/javascripts/other/activatePage.js')
     block pre-scripts
     title= title
 
   body
     .loading-spinner.spinner-border
-    .background
-      nav.navbar.navbar-expand-md.navbar-light.navigation-menu
-        .container
-          a.navbar-brand#main-title(href='/') COVID-19 Data
-          button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarMain')
-            span.navbar-toggler-icon
-          #navbarMain.navbar-collapse.collapse
-            ul.navbar-nav.mr-auto
-              li.nav-item
-                a.option(href="/map") Map
-              li.nav-item
-                a.option(href="/table") Table
-            block options
+    nav.navbar.navbar-expand-md.navbar-light.navigation-menu
+      .container
+        a.navbar-brand#main-title(href='/') COVID-19 Data
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarMain')
+          span.navbar-toggler-icon
+        #navbarMain.navbar-collapse.collapse
+          ul.navbar-nav.mr-auto
+            li.nav-item
+              a.option(href="/map") Map
+            li.nav-item
+              a.option(href="/table") Table
+          block options
 
+    .background
       block content
 
   script(src='/javascripts/jquery-3.3.1.slim.min.js')
   script(src='/javascripts/popper.min.js')
   script(src='/javascripts/bootstrap.min.js')
-  script(src='/javascripts/other/activatePage.js')
   block post-scripts

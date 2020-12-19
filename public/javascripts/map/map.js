@@ -15,6 +15,7 @@ let mapG,
 const mapGTranslate = [];
 
 const resetMap = () => {
+    if (!activated) return;
     if (mapGTranslate.length === 2 && mapG) {
         mapG.attr("transform", `translate(${mapGTranslate[0]}, ${mapGTranslate[1]})`);
     }

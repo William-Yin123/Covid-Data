@@ -94,6 +94,8 @@ const startTimeline = () => {
 startTimeline();
 
 const playTimeline = () => {
+    if (!activated) return;
+
     const playButtonIcon = d3.select("#play-button-icon");
 
     if (playButtonIcon.attr("class").includes("fa-play")) {
